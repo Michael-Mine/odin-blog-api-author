@@ -1,30 +1,19 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { RouterProvider, useOutletContext } from "react-router";
 import Home from "./Home";
 import HomePostItem from "../components/HomePostItem";
+import useAllPosts from "../hooks/useAllPosts";
 
-vi.mock("react-router");
+vi.mock("../hooks/useAllPosts");
 vi.mock("../components/HomePostItem");
 
 describe("Testing Home page", () => {
-  // it("renders loading text", () => {
-  //   const router = createMemoryRouter(routes, { initialEntries: ["/"] });
-  //   const allPosts = [];
-  //   const error = null;
-  //   const loading = true;
-
-  //   render(
-  //     <RouterProvider router={router}>
-  //       <Home context={[allPosts, error, loading]} />
-  //     </RouterProvider>,
-  //   );
-
-  //   expect(screen.getByText("Loading...")).toBeInTheDocument();
-  // });
-
   it("renders loading text", () => {
-    vi.mocked(useOutletContext).mockReturnValue([[], null, true]);
+    vi.mocked(useAllPosts).mockReturnValue({
+      allPosts: [],
+      error: null,
+      loading: true,
+    });
 
     render(<Home />);
 
@@ -32,7 +21,11 @@ describe("Testing Home page", () => {
   });
 
   it("renders error text", () => {
-    vi.mocked(useOutletContext).mockReturnValue([[], "error", false]);
+    vi.mocked(useAllPosts).mockReturnValue({
+      allPosts: [],
+      error: "error",
+      loading: false,
+    });
 
     render(<Home />);
 
@@ -42,7 +35,11 @@ describe("Testing Home page", () => {
   });
 
   it("renders correct number of children components", () => {
-    vi.mocked(useOutletContext).mockReturnValue([[1, 2, 3, 4], null, false]);
+    vi.mocked(useAllPosts).mockReturnValue({
+      allPosts: [1, 2, 3, 4],
+      error: null,
+      loading: false,
+    });
     vi.mocked(HomePostItem).mockReturnValue(<p>Mock Post</p>);
 
     render(<Home />);
