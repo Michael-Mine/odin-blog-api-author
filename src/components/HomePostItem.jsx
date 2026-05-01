@@ -16,7 +16,14 @@ function HomePostItem({ post }) {
         className={styles.image}
       />
       <div className="text">
-        <h3>{date.toDateString()}</h3>
+        <h3>
+          {post.datePublished
+            ? "Published on " +
+              date.toDateString() +
+              " at " +
+              date.toLocaleTimeString()
+            : "Not Published"}
+        </h3>
         <h2>{post.title}</h2>
         <p>{content.slice(0, 300)}...</p>
       </div>

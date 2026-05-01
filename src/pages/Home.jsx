@@ -1,9 +1,9 @@
-import { useOutletContext } from "react-router";
+import useAllPosts from "../hooks/useAllPosts";
 import HomePostItem from "../components/HomePostItem";
 import styles from "../styles/Home.module.css";
 
 function Home() {
-  const [allPosts, error, loading] = useOutletContext();
+  const { allPosts, error, loading } = useAllPosts();
   console.log(allPosts);
 
   if (loading) return <p>Loading...</p>;

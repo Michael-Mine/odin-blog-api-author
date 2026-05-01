@@ -20,10 +20,10 @@ describe("Testing HomePostItem Component", () => {
     );
 
     const link = screen.getByRole("link", {
-      name: "blog post picture Mon Mar 30 2026 Test Title Test content text...",
+      name: "blog post picture Published on Mon Mar 30 2026 at 01:01:01 Test Title Test content text...",
     });
     const date = screen.getByRole("heading", {
-      name: "Mon Mar 30 2026",
+      name: "Published on Mon Mar 30 2026 at 01:01:01",
     });
     const title = screen.getByRole("heading", { name: "Test Title" });
     const image = screen.getByAltText("blog post picture");
