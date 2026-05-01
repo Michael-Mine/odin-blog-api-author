@@ -1,0 +1,106 @@
+import { useState } from "react";
+
+function SignUp() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    passwordCheck: "",
+  });
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [signingUp, setSigningUp] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const sendSignUp = () => {
+    console.log("signing up");
+    setSigningUp(true);
+
+    fetch("http://localhost:3000/sign-up", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((response) => setResponse({ ...response }))
+      .catch((error) => setError(error))
+      .finally(() => setSigningUp(false));
+  };
+
+  if (signingUp) return <p>Signing Up...</p>;
+  if (response && response.message === "user created")
+    return <p>{response.message}</p>;
+
+  return (
+    <div>
+      <h4>Sign Up Form</h4>
+      <div className="input-container">
+        <label htmlFor="first-name">First Name:</label>
+        <input
+          className="input-field"
+          id="first-name"
+          name="firstName"
+          data-testid="firstName-input"
+          type="text"
+          value={formData.firstName}
+          onChange={handleChange}
+        />
+        <label htmlFor="last-name">Last Name:</label>
+        <input
+          className="input-field"
+          id="last-name"
+          name="lastName"
+          data-testid="lastName-input"
+          type="text"
+          value={formData.lastName}
+          onChange={handleChange}
+        />
+        <label htmlFor="username">Email:</label>
+        <input
+          className="input-field"
+          id="username"
+          name="email"
+          data-testid="username-input"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="input-container">
+        <label htmlFor="password">Password:</label>
+        <input
+          className="input-field"
+          id="password"
+          name="password"
+          data-testid="password-input"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <label htmlFor="password-confirm">Password Confirm:</label>
+        <input
+          className="input-field"
+          id="passwordCheck"
+          name="passwordCheck"
+          data-testid="passwordCheck"
+          type="password"
+          value={formData.passwordCheck}
+          onChange={handleChange}
+        />
+      </div>
+      <button onClick={sendSignUp}>Sign Up</button>
+      {error && <p className="characters">A network error was encountered</p>}
+      {response && (
+        <p className="characters">{response.message || response[0].msg}</p>
+      )}
+    </div>
+  );
+}
+
+export default SignUp;

@@ -1,0 +1,20 @@
+.post {
+  background-color: #e5e5e5;
+}
+
+h2 {
+  padding-top: 20px;
+}
+
+.image {
+  /* width: 100%; */
+  /* height: auto; */
+  padding: 5px;
+}
+
+p {
+  text-align: justify;
+  hyphens: auto;
+  margin-top: auto;
+  padding: 20px;
+}
