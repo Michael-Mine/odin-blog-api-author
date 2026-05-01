@@ -1,6 +1,5 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import SignUp from "../components/SignUp";
 
 function Login({ setLoggedIn }) {
   const [inputEmail, setInputEmail] = useState("");
@@ -8,17 +7,12 @@ function Login({ setLoggedIn }) {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [loggingIn, setLoggingIn] = useState(false);
-  const [signUpForm, setSignUpForm] = useState(false);
-
-  const openSignUpForm = () => {
-    setSignUpForm(!signUpForm);
-  };
 
   const sendLogin = () => {
     console.log("logging in");
     setLoggingIn(true);
 
-    fetch("http://localhost:3000/login", {
+    fetch("http://localhost:3000/login-author", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -40,7 +34,7 @@ function Login({ setLoggedIn }) {
 
   return (
     <div>
-      <h4>Login to post Comments</h4>
+      <h4>Login to access</h4>
       <div className="input-container">
         <label htmlFor="username">Email:</label>
         <input
@@ -62,10 +56,8 @@ function Login({ setLoggedIn }) {
         />
       </div>
       <button onClick={sendLogin}>Login</button>
-      <button onClick={openSignUpForm}>or Sign Up</button>
       {error && <p className="characters">A network error was encountered</p>}
       {response && <p className="characters">{response.message}</p>}
-      {signUpForm && <SignUp />}
     </div>
   );
 }

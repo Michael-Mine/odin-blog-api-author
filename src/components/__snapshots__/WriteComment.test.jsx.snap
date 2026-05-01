@@ -1,0 +1,35 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`WriteComment component > renders heading, buttons, input & text 1`] = `
+<div>
+  <div>
+    <h3>
+      Add a Comment
+    </h3>
+    <div
+      class="comment-container"
+    >
+      <button>
+        Logout
+      </button>
+      <textarea
+        class="input-field comment"
+        data-testid="comment-input"
+        maxlength="400"
+        placeholder="Add a comment"
+        type="text"
+      />
+      <button>
+        Submit
+      </button>
+    </div>
+    <p
+      class="characters"
+    >
+      Max characters 
+      0
+      /400
+    </p>
+  </div>
+</div>
+`;
