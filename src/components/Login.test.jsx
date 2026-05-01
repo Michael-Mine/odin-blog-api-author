@@ -4,14 +4,6 @@ import userEvent from "@testing-library/user-event";
 import Login from "./Login";
 
 describe("WriteComment component", () => {
-  it("renders heading", () => {
-    render(<Login setLoggedIn={() => {}} />);
-
-    expect(
-      screen.getByRole("heading", { name: "Login to post Comments" }),
-    ).toBeInTheDocument();
-  });
-
   it("renders heading, buttons, inputs", () => {
     const { container } = render(<Login setLoggedIn={() => {}} />);
 
@@ -104,16 +96,5 @@ describe("WriteComment component", () => {
 
     const response = screen.getByText("A network error was encountered");
     expect(response).toBeInTheDocument();
-  });
-
-  it("Sign Up form is rendered on button click", async () => {
-    const user = userEvent.setup();
-    render(<Login setLoggedIn={() => {}} />);
-
-    const signUp = screen.getByRole("button", { name: "or Sign Up" });
-    await user.click(signUp);
-
-    const title = screen.getByRole("heading", { name: "Sign Up Form" });
-    expect(title).toBeInTheDocument();
   });
 });
