@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import useAllPosts from "../hooks/useAllPosts";
 import formatDate from "../utils/formatDate";
+import PublishPost from "../components/PublishPost";
 import Comments from "../components/Comments";
 import styles from "../styles/Post.module.css";
 
@@ -15,7 +16,7 @@ function Post() {
   if (!post) return <h2>Post Not Found</h2>;
 
   const date = formatDate(post.datePublished);
-
+  PublishPost;
   return (
     <div>
       <img
@@ -35,6 +36,7 @@ function Post() {
         </p>
         <p>{post.content}</p>
       </div>
+      <PublishPost post={post} />
       <Comments />
     </div>
   );
