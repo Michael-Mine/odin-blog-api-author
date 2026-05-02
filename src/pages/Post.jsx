@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import useAllPosts from "../hooks/useAllPosts";
 import formatDate from "../utils/formatDate";
 import PublishPost from "../components/PublishPost";
-import EditPost from "./EditPost";
+import EditPost from "../components/EditPost";
 import Comments from "../components/Comments";
 import styles from "../styles/Post.module.css";
 

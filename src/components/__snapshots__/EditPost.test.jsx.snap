@@ -1,0 +1,56 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Testing Edit Post Component > renders heading, form inputs & button 1`] = `
+<div>
+  <div>
+    <h2>
+      Edit Post
+    </h2>
+    <div
+      class="input-container"
+    >
+      <label
+        for="title"
+      >
+        Title:
+      </label>
+      <input
+        class="input-field"
+        data-testid="title-input"
+        id="title"
+        name="title"
+        type="text"
+        value="Test Title"
+      />
+      <label
+        for="picURL"
+      >
+        Picture URL:
+      </label>
+      <input
+        class="input-field"
+        data-testid="picURL-input"
+        id="picURL"
+        name="picURL"
+        type="text"
+        value=""
+      />
+    </div>
+    <textarea
+      class="input-field post"
+      data-testid="content-input"
+      maxlength="5000"
+      name="content"
+      placeholder="Write post"
+      type="text"
+    >
+      Test content text
+    </textarea>
+    <div>
+      <button>
+        Send Edit
+      </button>
+    </div>
+  </div>
+</div>
+`;
