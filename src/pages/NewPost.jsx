@@ -6,10 +6,37 @@ function NewPost() {
     picURL: "",
     content: "",
   });
+  const [response, setResponse] = useState(null);
+  const [error, setError] = useState(null);
+  const [sending, setSending] = useState(false);
+  const url = "http://localhost:3000/posts";
+  const JWT = localStorage.getItem("JWT");
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const addPost = () => {
+    console.log("Adding New Post", formData);
+    setSending(true);
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${JWT}`,
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((response) => setResponse({ ...response }))
+      .catch((error) => setError(error))
+      .finally(() => setSending(false));
+  };
+
+  if (sending) return <p className="characters">Sending...</p>;
+  if (response && response.message === "post created")
+    return <p className="characters">{response.message}</p>;
 
   return (
     <div>
@@ -46,6 +73,13 @@ function NewPost() {
         onChange={handleChange}
         maxLength="5000"
       />
+      <div>
+        <button onClick={addPost}>Add Post</button>
+      </div>
+      {error && <p className="characters">A network error was encountered</p>}
+      {response && (
+        <p className="characters">{response.message || response[0].msg}</p>
+      )}
     </div>
   );
 }
