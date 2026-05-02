@@ -11,9 +11,14 @@ function PublishPost({ post }) {
   const url = `http://localhost:3000/posts/${postId}`;
   const JWT = localStorage.getItem("JWT");
 
-  const unpublishPost = () => {
+  const pubOrUnpublishPost = () => {
     console.log("Updating Post " + postId);
     setSending(true);
+
+    let date = "";
+    if (!post.isPublished) {
+      date = new Date();
+    }
 
     fetch(url, {
       method: "PUT",
@@ -24,7 +29,8 @@ function PublishPost({ post }) {
       body: JSON.stringify({
         title: post.title,
         content: post.content,
-        isPublished: false,
+        isPublished: !post.isPublished,
+        datePublished: date,
       }),
     })
       .then((response) => response.json())
@@ -33,42 +39,16 @@ function PublishPost({ post }) {
       .finally(() => setSending(false));
   };
 
-  const publishPost = () => {
-    console.log("Updating Post " + postId);
-    setSending(true);
-
-    fetch(url, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${JWT}`,
-      },
-      body: JSON.stringify({
-        title: post.title,
-        content: post.content,
-        isPublished: true,
-        datePublished: new Date(),
-      }),
-    })
-      .then((response) => response.json())
-      .then((response) => setResponse({ ...response }))
-      .catch((error) => setError(error))
-      .finally(() => setSending(false));
-  };
-
-  if (sending) return <p>Sending...</p>;
+  if (sending) return <p className="characters">Sending...</p>;
+  if (response)
+    return <p className="characters">{response.message || response[0].msg}</p>;
 
   return (
     <>
-      {post.datePublished ? (
-        <button onClick={unpublishPost}>Unpublish Post</button>
-      ) : (
-        <button onClick={publishPost}>Publish Post</button>
-      )}
+      <button onClick={pubOrUnpublishPost}>
+        {post.datePublished ? "Unpublish Post" : "Publish Post"}
+      </button>
       {error && <p className="characters">A network error was encountered</p>}
-      {response && (
-        <p className="characters">{response.message || response[0].msg}</p>
-      )}
     </>
   );
 }
