@@ -1,25 +1,37 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { useParams } from "react-router";
-import DeleteComment from "./DeleteComment";
+import NewPost from "./NewPost";
 
-vi.mock("react-router");
-vi.mocked(useParams).mockReturnValue({ postId: "1" });
+describe("Testing New Post Page", () => {
+  it("renders heading, form inputs & button", () => {
+    const { container } = render(<NewPost />);
 
-describe("Testing DeleteComment Component", () => {
-  it("renders button correctly", () => {
-    render(<DeleteComment commentId={1} />);
+    expect(container).toMatchSnapshot();
+  });
 
-    const button = screen.getByRole("button", { name: "Delete" });
-    expect(button).toBeInTheDocument();
+  it("all input values are updated correctly", async () => {
+    const user = userEvent.setup();
+    render(<NewPost />);
+
+    const title = screen.getByTestId("title-input");
+    const picURL = screen.getByTestId("picURL-input");
+    const content = screen.getByTestId("content-input");
+
+    await user.type(title, "title test");
+    await user.type(picURL, "url");
+    await user.type(content, "blogging");
+
+    expect(title.value).toBe("title test");
+    expect(picURL.value).toBe("url");
+    expect(content.value).toBe("blogging");
   });
 
   it("sending text is shown while API request is in progress", async () => {
     const user = userEvent.setup();
-    render(<DeleteComment commentId={1} />);
+    render(<NewPost />);
 
-    const button = screen.getByRole("button", { name: "Delete" });
+    const button = screen.getByRole("button", { name: "Add Post" });
     await user.click(button);
 
     const sending = screen.getByText("Sending...");
@@ -36,9 +48,9 @@ describe("Testing DeleteComment Component", () => {
     });
 
     const user = userEvent.setup();
-    render(<DeleteComment commentId={1} />);
+    render(<NewPost />);
 
-    const button = screen.getByRole("button", { name: "Delete" });
+    const button = screen.getByRole("button", { name: "Add Post" });
     await user.click(button);
 
     const response = screen.getByText("A network error was encountered");
@@ -47,7 +59,7 @@ describe("Testing DeleteComment Component", () => {
 
   it("response text is rendered after API request", async () => {
     window.fetch = vi.fn(() => {
-      const response = { message: "Comment deleted" };
+      const response = { message: "post created" };
 
       return Promise.resolve({
         json: () => Promise.resolve(response),
@@ -55,12 +67,12 @@ describe("Testing DeleteComment Component", () => {
     });
 
     const user = userEvent.setup();
-    render(<DeleteComment commentId={1} />);
+    render(<NewPost />);
 
-    const button = screen.getByRole("button", { name: "Delete" });
+    const button = screen.getByRole("button", { name: "Add Post" });
     await user.click(button);
 
-    const response = screen.getByText("Comment deleted");
+    const response = screen.getByText("post created");
     expect(response).toBeInTheDocument();
   });
 });
