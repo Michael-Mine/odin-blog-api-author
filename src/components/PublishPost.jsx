@@ -59,6 +59,7 @@ PublishPost.propTypes = {
     content: PropTypes.string,
     datePublished: PropTypes.string,
     id: PropTypes.number,
+    isPublished: PropTypes.bool,
     picUrl: PropTypes.string,
     title: PropTypes.string,
   }),
