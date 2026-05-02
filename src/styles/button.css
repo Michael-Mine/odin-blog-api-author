@@ -49,3 +49,9 @@ button:active:before {
 }
 
 /* Copyright - 2026 cssbuttons-io (cssbuttons.io)  */
+
+@media (prefers-color-scheme: dark) {
+  button {
+    color: white;
+  }
+}
