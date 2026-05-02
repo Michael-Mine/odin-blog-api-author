@@ -1,5 +1,6 @@
 import formatDate from "../utils/formatDate";
 import PropTypes from "prop-types";
+import DeleteComment from "./DeleteComment";
 
 function CommentItem({ comment }) {
   const date = formatDate(comment.date);
@@ -11,6 +12,7 @@ function CommentItem({ comment }) {
         {date.toDateString()} at {date.toLocaleTimeString()}{" "}
       </p>
       <p>{comment.content}</p>
+      <DeleteComment commentId={comment.id} />
       <hr />
     </div>
   );
