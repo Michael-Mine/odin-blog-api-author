@@ -1,13 +1,15 @@
+import { useState } from "react";
 import { useParams } from "react-router";
 import useAllPosts from "../hooks/useAllPosts";
 import formatDate from "../utils/formatDate";
 import PublishPost from "../components/PublishPost";
+import EditPost from "./EditPost";
 import Comments from "../components/Comments";
 import styles from "../styles/Post.module.css";
 
 function Post() {
   const { allPosts, error, loading } = useAllPosts();
-
+  const [editPostForm, setEditPostForm] = useState(false);
   let { postId } = useParams();
   const post = allPosts.find((post) => post.id == postId);
 
@@ -16,7 +18,11 @@ function Post() {
   if (!post) return <h2>Post Not Found</h2>;
 
   const date = formatDate(post.datePublished);
-  PublishPost;
+
+  const openEditPost = () => {
+    setEditPostForm(!editPostForm);
+  };
+
   return (
     <div>
       <img
@@ -37,6 +43,8 @@ function Post() {
         <p>{post.content}</p>
       </div>
       <PublishPost post={post} />
+      <button onClick={openEditPost}>Edit Post</button>
+      {editPostForm && <EditPost post={post} />}
       <Comments />
     </div>
   );

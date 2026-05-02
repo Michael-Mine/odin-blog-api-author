@@ -37,8 +37,4 @@ function App() {
 
 export default App;
 
-// new page for new posts
-
-// add way to edit existing posts
-
 // update Readme's

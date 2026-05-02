@@ -1,8 +1,8 @@
 import App from "../App.jsx";
 import ErrorPage from "../pages/Error-404.jsx";
 import Home from "../pages/Home.jsx";
-import Post from "../pages/Post.jsx";
 import NewPost from "../pages/NewPost.jsx";
+import Post from "../pages/Post.jsx";
 
 const routes = [
   {
@@ -11,8 +11,8 @@ const routes = [
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Home /> },
-      { path: "post/:postId", element: <Post /> },
       { path: "new-post", element: <NewPost /> },
+      { path: "post/:postId", element: <Post /> },
     ],
   },
 ];
