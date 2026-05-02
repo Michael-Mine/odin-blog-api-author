@@ -32,7 +32,6 @@ function App() {
 
 export default App;
 
-// published button on post page
 // delete comments on post page
 
 // new page for new posts
