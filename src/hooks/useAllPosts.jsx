@@ -23,7 +23,7 @@ const useAllPosts = () => {
       .then((response) => setAllPosts([...response]))
       .catch((error) => setError(error))
       .finally(() => setLoading(false));
-  }, [JWT]);
+  }, [apiUrl, JWT]);
 
   return { allPosts, error, loading };
 };
