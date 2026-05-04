@@ -9,7 +9,8 @@ function NewPost() {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
-  const url = "http://localhost:3000/posts";
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const url = `${apiUrl}posts`;
   const JWT = localStorage.getItem("JWT");
 
   const handleChange = (e) => {

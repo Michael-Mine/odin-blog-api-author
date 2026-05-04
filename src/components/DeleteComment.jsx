@@ -7,7 +7,8 @@ function DeleteComment({ commentId }) {
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
   let { postId } = useParams();
-  const url = `http://localhost:3000/posts/${postId}/comments/${commentId}`;
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const url = `${apiUrl}posts/${postId}/comments/${commentId}`;
   const JWT = localStorage.getItem("JWT");
 
   const deleteComment = () => {

@@ -4,11 +4,12 @@ const useAllPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const apiUrl = import.meta.env.VITE_API_URL;
   const JWT = localStorage.getItem("JWT");
 
   useEffect(() => {
     console.log("fetching allPosts");
-    fetch("http://localhost:3000/posts/all", {
+    fetch(`${apiUrl}posts/all`, {
       headers: {
         Authorization: `Bearer ${JWT}`,
       },

@@ -8,11 +8,14 @@ function Login({ setLoggedIn }) {
   const [error, setError] = useState(null);
   const [loggingIn, setLoggingIn] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const url = `${apiUrl}login-author`;
+
   const sendLogin = () => {
     console.log("logging in");
     setLoggingIn(true);
 
-    fetch("http://localhost:3000/login-author", {
+    fetch(url, {
       method: "POST",
       headers: {
         "content-type": "application/json",

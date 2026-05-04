@@ -14,8 +14,9 @@ function EditPost({ post }) {
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
   let { postId } = useParams();
-  const url = `http://localhost:3000/posts/${postId}`;
+  const url = `${apiUrl}posts/${postId}`;
   const JWT = localStorage.getItem("JWT");
 
   const handleChange = (e) => {
